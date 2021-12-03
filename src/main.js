@@ -1,26 +1,30 @@
-import TripInfoTemplate from './components/TripInfoTemplate';
+import TotalTripInfoTemplate from './components/TotalTripInfoTemplate';
 import SiteMenuTemplate from './components/SiteMenuTemplate';
 import FiltersTemplate from './components/FiltersTemplate';
 import SortTemplate from './components/SortTemplate';
-import EditTemplate from './components/EditTemplate';
+import EditEventTemplate from './components/EditEventTemplate';
 import TripDaysListTemplate from './components/TripDaysListTemplate';
 
-const render = (container, template, place = 'beforeend') => {
-  container.insertAdjacentHTML(place, template);
-};
+import { generateEvents } from './mocks/generateEvents';
+import { getRandomIntNumber, render } from './utils';
+import { generateTotalTripInfo } from './mocks/generateTotalTripInfo';
 
-// Render header elements
+// Generated site constants
+const EVENTS_AMOUNT = getRandomIntNumber(2, 10);
+const events = generateEvents(EVENTS_AMOUNT);
+const totalTripInfo = generateTotalTripInfo(events);
+
 const siteHeaderElement = document.querySelector('.page-header');
 const tripMainElement = siteHeaderElement.querySelector('.trip-main');
 const tripControlsElement = tripMainElement.querySelector('.trip-controls');
 
-render(tripMainElement, TripInfoTemplate(), 'afterbegin');
+render(tripMainElement, TotalTripInfoTemplate(totalTripInfo), 'afterbegin');
 render(tripControlsElement, SiteMenuTemplate());
 render(tripControlsElement, FiltersTemplate());
 
 const siteMainElement = document.querySelector('.page-main');
 const tripEventsElement = siteMainElement.querySelector('.trip-events');
-
 render(tripEventsElement, SortTemplate());
-render(tripEventsElement, EditTemplate());
-render(tripEventsElement, TripDaysListTemplate());
+
+render(tripEventsElement, EditEventTemplate(events[0]));
+render(tripEventsElement, TripDaysListTemplate(events.slice(1)));
