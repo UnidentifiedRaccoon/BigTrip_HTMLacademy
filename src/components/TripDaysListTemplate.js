@@ -1,29 +1,56 @@
 import TripEventsListTemplate from './TripEventsListTemplate';
+import { MONTH_NAMES } from '../const';
 
-const DAYS_AMOUNT = 2;
+const divideByDates = (events) => {
+  const days = [];
+  days[0] = [events[0]];
+  let prevDate = events[0].dateFrom.getDate();
+  let prevIndex = 0;
 
-const TripDayItemInfoTemplate = () => `
+  for (let i = 1; i < events.length; i += 1) {
+    if (events[i].dateFrom.getDate() === prevDate) {
+      days[prevIndex].push(events[i]);
+    } else {
+      days[prevIndex + 1] = [events[i]];
+      prevIndex += 1;
+      prevDate = events[i].dateFrom.getDate();
+    }
+  }
+  return days;
+};
+
+const TripDayItemInfoTemplate = (date, dayIndex) => {
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const monthName = MONTH_NAMES[date.getMonth()];
+
+  return `
       <div class="day__info">
-        <span class="day__counter">1</span>
-        <time class="day__date" datetime="2019-03-18">MAR 18</time>
+        <span class="day__counter">${dayIndex}</span>
+        <time class="day__date" datetime="${year}-${month}-${day}">${monthName} ${day}</time>
       </div>
     `;
+};
 
-const TripDayItemTemplate = () => `
+const TripDayItemTemplate = (events, dayIndex) => `
         <li class="trip-days__item  day">
-            ${TripDayItemInfoTemplate()}  
-            ${TripEventsListTemplate()}  
+            ${TripDayItemInfoTemplate(events[0].dateFrom, dayIndex)}  
+            ${TripEventsListTemplate(events)}  
         </li>
     `;
 
-const TripDaysListTemplate = () => {
-  const days = [];
-  for (let i = 0; i < DAYS_AMOUNT; i += 1) {
-    days.push(TripDayItemTemplate());
+const TripDaysListTemplate = (events) => {
+  const eventsDividedByDates = divideByDates(events);
+  const daysTemplates = [];
+
+  for (let i = 0; i < eventsDividedByDates.length; i += 1) {
+    daysTemplates.push(TripDayItemTemplate(eventsDividedByDates[i], i + 1));
   }
+
   return `
       <ul class="trip-days">
-        ${days.join('')}  
+      ${daysTemplates.join('\n')}
       </ul>
     `;
 };
