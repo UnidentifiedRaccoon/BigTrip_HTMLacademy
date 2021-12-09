@@ -1,6 +1,6 @@
-import { castTimeFormat } from '../utils';
-import { Destination, TYPES } from '../const';
-import { offersForEachType } from '../mocks/generateOffers';
+import { castTimeFormat } from '../../utils';
+import { Destination, TYPES } from '../../const';
+import { offersForEachType } from '../../mocks/generateOffers';
 
 const getFormattedDate = (date) => {
   const year = castTimeFormat(date.getFullYear() % 100);
@@ -150,7 +150,7 @@ const EventDetailsTemplate = (eventActiveOffers, offersForCurrentType, descripti
   </section>
 `;
 
-const EditEventTemplate = (event) => {
+const EventEditTemplate = (event) => {
   const {
     type, price, destination, dateFrom, dateTo, offers: eventActiveOffers,
   } = event;
@@ -163,4 +163,4 @@ const EditEventTemplate = (event) => {
 `;
 };
 
-export default EditEventTemplate;
+export default EventEditTemplate;

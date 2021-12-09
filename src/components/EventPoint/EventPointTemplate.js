@@ -1,4 +1,4 @@
-import { castTimeFormat, getPerformedTimeDiff } from '../utils';
+import { castTimeFormat, getPerformedTimeDiff } from '../../utils';
 
 const getFormattedDuration = (dateFrom, dateTo) => {
   const { days, hours, minutes } = getPerformedTimeDiff(dateFrom, dateTo);
@@ -26,7 +26,7 @@ const EventOffersTemplate = (offers) => {
     `;
 };
 
-const TripEventItemTemplate = (event) => {
+const EventPointTemplate = (event) => {
 // Стоимость точки маршрута, которую ввел пользователь
 // в соотв. поле не  изменяется при выборе Offers
   const {
@@ -65,21 +65,8 @@ const TripEventItemTemplate = (event) => {
             </button>
           </div>
         </li>
-
     `
   );
 };
 
-const TripEventsListTemplate = (events) => {
-  const templatedEvents = [];
-  for (let i = 0; i < events.length; i += 1) {
-    templatedEvents.push(TripEventItemTemplate(events[i]));
-  }
-  return `
-      <ul class="trip-events__list">
-        ${templatedEvents.join('')}  
-      </ul>
-    `;
-};
-
-export default TripEventsListTemplate;
+export default EventPointTemplate;
