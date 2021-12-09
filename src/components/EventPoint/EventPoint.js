@@ -1,14 +1,14 @@
-import { createElement } from '../utils';
-import TotalTripInfoTemplate from './TotalTripInfoTemplate';
+import { createElement } from '../../utils';
+import EventPointTemplate from './EventPointTemplate';
 
-export default class TotalTripInfo {
-  constructor(info) {
-    this.info = info;
+export default class EventPoint {
+  constructor(event) {
+    this.event = event;
     this._element = null;
   }
 
   getTemplate() {
-    return TotalTripInfoTemplate(this.info);
+    return EventPointTemplate(this.event);
   }
 
   getElement() {

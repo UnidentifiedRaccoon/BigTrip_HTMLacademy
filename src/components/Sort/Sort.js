@@ -1,18 +1,18 @@
-import { createElement } from '../utils';
-import FiltersTemplate from './FiltersTemplate';
+import { createElement } from '../../utils';
+import SortTemplate from './SortTemplate';
 
-export default class Filters {
+export default class Sort {
   constructor() {
     this._element = null;
   }
 
   static getTemplate() {
-    return FiltersTemplate();
+    return SortTemplate();
   }
 
   getElement() {
     if (!this._element) {
-      this._element = createElement(this.getTemplate());
+      this._element = createElement(Sort.getTemplate());
     }
     return this._element;
   }

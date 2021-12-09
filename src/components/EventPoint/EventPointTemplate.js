@@ -1,4 +1,4 @@
-import { castTimeFormat, getPerformedTimeDiff } from '../utils';
+import { castTimeFormat, getPerformedTimeDiff } from '../../utils';
 
 const getFormattedDuration = (dateFrom, dateTo) => {
   const { days, hours, minutes } = getPerformedTimeDiff(dateFrom, dateTo);
@@ -26,7 +26,7 @@ const EventOffersTemplate = (offers) => {
     `;
 };
 
-const TripEventItemTemplate = (event) => {
+const EventPointTemplate = (event) => {
 // Стоимость точки маршрута, которую ввел пользователь
 // в соотв. поле не  изменяется при выборе Offers
   const {
@@ -69,4 +69,4 @@ const TripEventItemTemplate = (event) => {
   );
 };
 
-export default TripEventItemTemplate;
+export default EventPointTemplate;

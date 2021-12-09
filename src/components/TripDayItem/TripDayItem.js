@@ -1,5 +1,5 @@
-import { createElement, render } from '../utils';
-import TripEventsList from './TripEventsList';
+import { createElement, render } from '../../utils';
+import TripEventsList from '../TripEventsList/TripEventsList';
 import TripDayItemTemplate from './TripDayItemTemplate';
 
 export default class TripDayItem {

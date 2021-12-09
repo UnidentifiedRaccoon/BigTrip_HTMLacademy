@@ -1,11 +1,11 @@
 import { generateEvents } from './mocks/generateEvents';
 import { getRandomIntNumber, render } from './utils';
 import { generateTotalTripInfo } from './mocks/generateTotalTripInfo';
-import TotalTripInfo from './components/TotalTripInfo';
-import SiteMenu from './components/SiteMenu';
-import Filters from './components/Filters';
-import Sort from './components/Sort';
-import TripDaysList from './components/TripDaysList';
+import TotalTripInfo from './components/TotalTripInfo/TotalTripInfo';
+import SiteMenu from './components/SiteMenu/SiteMenu';
+import Filters from './components/Filters/Filters';
+import Sort from './components/Sort/Sort';
+import TripDaysList from './components/TripDaysList/TripDaysList';
 
 // Generated site constants
 const EVENTS_AMOUNT = getRandomIntNumber(2, 10);

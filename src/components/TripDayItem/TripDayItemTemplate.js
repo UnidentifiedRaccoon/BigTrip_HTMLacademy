@@ -1,4 +1,4 @@
-import { MONTH_NAMES } from '../const';
+import { MONTH_NAMES } from '../../const';
 
 const TripDayItemInfoTemplate = (date, dayIndex) => {
   const year = date.getFullYear();

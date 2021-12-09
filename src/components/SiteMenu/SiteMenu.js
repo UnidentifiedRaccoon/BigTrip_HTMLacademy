@@ -1,4 +1,4 @@
-import { createElement } from '../utils';
+import { createElement } from '../../utils';
 import SiteMenuTemplate from './SiteMenuTemplate';
 
 export default class SiteMenu {
@@ -12,7 +12,7 @@ export default class SiteMenu {
 
   getElement() {
     if (!this._element) {
-      this._element = createElement(this.getTemplate());
+      this._element = createElement(SiteMenu.getTemplate());
     }
     return this._element;
   }

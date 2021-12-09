@@ -1,5 +1,5 @@
-import { createElement, render } from '../utils';
-import TripDayItem from './TripDayItem';
+import { createElement, render } from '../../utils';
+import TripDayItem from '../TripDayItem/TripDayItem';
 import TripDaysListTemplate from './TripDaysLIstTemplate';
 
 const divideByDates = (events) => {
@@ -44,7 +44,7 @@ export default class TripDaysList {
 
   getElement() {
     if (!this._element) {
-      this._element = createElement(this.getTemplate());
+      this._element = createElement(TripDaysList.getTemplate());
       this.fillDaysListWithEvents();
     }
     return this._element;

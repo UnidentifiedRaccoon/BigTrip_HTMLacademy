@@ -1,14 +1,14 @@
-import { createElement } from '../utils';
-import EditEventTemplate from './EditEventTemplate';
+import { createElement } from '../../utils';
+import EventEditTemplate from './EventEditTemplate';
 
-export default class EditEvent {
+export default class EventEdit {
   constructor(event) {
     this.event = event;
     this._element = null;
   }
 
   getTemplate() {
-    return EditEventTemplate(this.event);
+    return EventEditTemplate(this.event);
   }
 
   getElement() {
