@@ -19,4 +19,5 @@ const TotalTripInfoTemplate = (totalTripInfo) => {
       ${TripInfoCostTemplate(price)}
     </section>`;
 };
+
 export default TotalTripInfoTemplate;
