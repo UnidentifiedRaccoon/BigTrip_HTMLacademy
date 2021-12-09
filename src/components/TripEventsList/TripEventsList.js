@@ -7,18 +7,28 @@ const renderEventItem = (eventElementsList, event) => {
   const eventPoint = new EventPoint(event).getElement();
   const eventEditForm = new EventEdit(event).getElement();
 
-  render(eventElementsList, eventPoint);
-
   const rollupBtn = eventPoint.querySelector('.event__rollup-btn');
+  const escKeyDownHandler = (evt) => {
+    evt.preventDefault();
+    const isEsc = evt.keyCode === 27;
+    if (isEsc) {
+      eventElementsList.replaceChild(eventPoint, eventEditForm);
+      document.removeEventListener('keydown', escKeyDownHandler);
+    }
+  };
 
   rollupBtn.addEventListener('click', (evt) => {
     evt.preventDefault();
     eventElementsList.replaceChild(eventEditForm, eventPoint);
+    document.addEventListener('keydown', escKeyDownHandler);
   });
   eventEditForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
     eventElementsList.replaceChild(eventPoint, eventEditForm);
+    document.removeEventListener('keydown', escKeyDownHandler);
   });
+
+  render(eventElementsList, eventPoint);
 };
 
 export default class TripEventsList {
