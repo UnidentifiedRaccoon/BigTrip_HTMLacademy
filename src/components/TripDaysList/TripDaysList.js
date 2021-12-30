@@ -1,3 +1,4 @@
+import IComponent from '../AbstractClasses/IComponent';
 import { createElement, render } from '../../utils';
 import TripDayItem from '../TripDayItem/TripDayItem';
 import TripDaysListTemplate from './TripDaysLIstTemplate';
@@ -20,13 +21,14 @@ const divideByDates = (events) => {
   return days;
 };
 
-export default class TripDaysList {
+export default class TripDaysList extends IComponent {
   constructor(events) {
+    super();
     this.events = events;
-    this._element = null;
   }
 
-  static getTemplate() {
+  // eslint-disable-next-line class-methods-use-this
+  getTemplate() {
     return TripDaysListTemplate();
   }
 
@@ -44,13 +46,9 @@ export default class TripDaysList {
 
   getElement() {
     if (!this._element) {
-      this._element = createElement(TripDaysList.getTemplate());
+      this._element = createElement(this.getTemplate());
       this.fillDaysListWithEvents();
     }
     return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

@@ -1,23 +1,9 @@
-import { createElement } from '../../utils';
+import IComponent from '../AbstractClasses/IComponent';
 import SortTemplate from './SortTemplate';
 
-export default class Sort {
-  constructor() {
-    this._element = null;
-  }
-
-  static getTemplate() {
+export default class Sort extends IComponent {
+  // eslint-disable-next-line class-methods-use-this
+  getTemplate() {
     return SortTemplate();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(Sort.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

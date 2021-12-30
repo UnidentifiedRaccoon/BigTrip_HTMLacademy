@@ -1,10 +1,11 @@
+import IComponent from '../AbstractClasses/IComponent';
 import { createElement, render } from '../../utils';
 import TripEventsList from '../TripEventsList/TripEventsList';
 import TripDayItemTemplate from './TripDayItemTemplate';
 
-export default class TripDayItem {
+export default class TripDayItem extends IComponent {
   constructor(events, index) {
-    this._element = null;
+    super();
     this.events = events;
     this.index = index;
   }
@@ -24,9 +25,5 @@ export default class TripDayItem {
       this.fillDayItemWithEvents();
     }
     return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

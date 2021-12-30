@@ -36,8 +36,7 @@ const EventPointTemplate = (event) => {
   const duration = getFormattedDuration(dateFrom, dateTo);
   const timeFrom = `${dateFrom.getHours()} : ${dateFrom.getMinutes()}`;
   const timeTo = `${dateTo.getHours()} : ${dateTo.getMinutes()}`;
-  return (
-    `
+  return `
         <li class="trip-events__item">
           <div class="event">
             <div class="event__type">
@@ -65,8 +64,7 @@ const EventPointTemplate = (event) => {
             </button>
           </div>
         </li>
-    `
-  );
+    `;
 };
 
 export default EventPointTemplate;

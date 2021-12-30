@@ -1,24 +1,13 @@
-import { createElement } from '../../utils';
+import IComponent from '../AbstractClasses/IComponent';
 import EventPointTemplate from './EventPointTemplate';
 
-export default class EventPoint {
+export default class EventPoint extends IComponent {
   constructor(event) {
+    super();
     this.event = event;
-    this._element = null;
   }
 
   getTemplate() {
     return EventPointTemplate(this.event);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

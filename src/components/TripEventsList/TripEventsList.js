@@ -1,3 +1,4 @@
+import IComponent from '../AbstractClasses/IComponent';
 import { createElement, render } from '../../utils';
 import TripEventsListTemplate from './TripEventsListTemplate';
 import EventPoint from '../EventPoint/EventPoint';
@@ -31,10 +32,10 @@ const renderEventItem = (eventElementsList, event) => {
   render(eventElementsList, eventPoint);
 };
 
-export default class TripEventsList {
+export default class TripEventsList extends IComponent {
   constructor(events) {
+    super();
     this.events = events;
-    this._element = null;
   }
 
   static getTemplate() {
@@ -54,9 +55,5 @@ export default class TripEventsList {
       this.fillEventsListWithEvents();
     }
     return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

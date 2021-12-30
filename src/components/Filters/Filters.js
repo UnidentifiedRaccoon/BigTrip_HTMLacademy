@@ -1,23 +1,9 @@
-import { createElement } from '../../utils';
+import IComponent from '../AbstractClasses/IComponent';
 import FiltersTemplate from './FiltersTemplate';
 
-export default class Filters {
-  constructor() {
-    this._element = null;
-  }
-
-  static getTemplate() {
+export default class Filters extends IComponent {
+  // eslint-disable-next-line class-methods-use-this
+  getTemplate() {
     return FiltersTemplate();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(Filters.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

@@ -1,24 +1,13 @@
-import { createElement } from '../../utils';
+import IComponent from '../AbstractClasses/IComponent';
 import EventEditTemplate from './EventEditTemplate';
 
-export default class EventEdit {
+export default class EventEdit extends IComponent {
   constructor(event) {
+    super();
     this.event = event;
-    this._element = null;
   }
 
   getTemplate() {
     return EventEditTemplate(this.event);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

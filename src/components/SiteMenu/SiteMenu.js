@@ -1,23 +1,9 @@
-import { createElement } from '../../utils';
+import IComponent from '../AbstractClasses/IComponent';
 import SiteMenuTemplate from './SiteMenuTemplate';
 
-export default class SiteMenu {
-  constructor() {
-    this._element = null;
-  }
-
-  static getTemplate() {
+export default class SiteMenu extends IComponent {
+  // eslint-disable-next-line class-methods-use-this
+  getTemplate() {
     return SiteMenuTemplate();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(SiteMenu.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
