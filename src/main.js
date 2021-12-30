@@ -1,5 +1,6 @@
 import { generateEvents } from './mocks/generateEvents';
-import { getRandomIntNumber, render } from './utils';
+import { getRandomIntNumber } from './utils/common';
+import { render } from './utils/render';
 import { generateTotalTripInfo } from './mocks/generateTotalTripInfo';
 import TotalTripInfo from './components/TotalTripInfo/TotalTripInfo';
 import SiteMenu from './components/SiteMenu/SiteMenu';
@@ -16,16 +17,16 @@ const siteHeaderElement = document.querySelector('.page-header');
 const tripMainElement = siteHeaderElement.querySelector('.trip-main');
 const tripControlsElement = tripMainElement.querySelector('.trip-controls');
 
-render(tripControlsElement, new SiteMenu().getElement());
-render(tripControlsElement, new Filters().getElement());
+render(tripControlsElement, new SiteMenu());
+render(tripControlsElement, new Filters());
 
 const siteMainElement = document.querySelector('.page-main');
 const tripEventsElement = siteMainElement.querySelector('.trip-events');
-render(tripEventsElement, new Sort().getElement());
+render(tripEventsElement, new Sort());
 
-if (events.length === 0) render(tripEventsElement, new NoEvents().getElement());
+if (events.length === 0) render(tripEventsElement, new NoEvents());
 else {
   const totalTripInfo = generateTotalTripInfo(events);
-  render(tripMainElement, new TotalTripInfo(totalTripInfo).getElement(), 'prepend');
-  render(tripEventsElement, new TripDaysList(events).getElement());
+  render(tripMainElement, new TotalTripInfo(totalTripInfo), 'prepend');
+  render(tripEventsElement, new TripDaysList(events));
 }

@@ -1,4 +1,4 @@
-import { castTimeFormat, getPerformedTimeDiff } from '../../utils';
+import { castTimeFormat, getPerformedTimeDiff } from '../../utils/common';
 
 const getFormattedDuration = (dateFrom, dateTo) => {
   const { days, hours, minutes } = getPerformedTimeDiff(dateFrom, dateTo);

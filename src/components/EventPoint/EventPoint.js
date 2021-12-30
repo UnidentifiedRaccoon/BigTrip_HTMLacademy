@@ -10,4 +10,9 @@ export default class EventPoint extends IComponent {
   getTemplate() {
     return EventPointTemplate(this.event);
   }
+
+  setOpenBtnClickHandler(handler) {
+    const rollupBtn = this.getElement().querySelector('.event__rollup-btn');
+    rollupBtn.addEventListener('click', handler);
+  }
 }

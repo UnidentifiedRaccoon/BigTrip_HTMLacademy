@@ -1,5 +1,5 @@
 import { Destination } from '../const';
-import { getRandomArrayItem, getRandomIntNumber } from '../utils';
+import { getRandomArrayItem, getRandomIntNumber } from '../utils/common';
 
 const getRandomPictures = () => {
   const picturesAmount = getRandomIntNumber(Destination.PHOTOS.length - 1);

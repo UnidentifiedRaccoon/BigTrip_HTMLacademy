@@ -1,5 +1,5 @@
 import IComponent from '../AbstractClasses/IComponent';
-import { createElement, render } from '../../utils';
+import { createElement, render } from '../../utils/render';
 import TripDayItem from '../TripDayItem/TripDayItem';
 import TripDaysListTemplate from './TripDaysLIstTemplate';
 
@@ -40,7 +40,7 @@ export default class TripDaysList extends IComponent {
     const daysList = this._element;
     const eventsDividedByDates = this.getEventsDividedByDates();
     for (let i = 0; i < eventsDividedByDates.length; i += 1) {
-      render(daysList, new TripDayItem(eventsDividedByDates[i], i).getElement());
+      render(daysList, new TripDayItem(eventsDividedByDates[i], i));
     }
   }
 

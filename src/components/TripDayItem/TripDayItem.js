@@ -1,5 +1,5 @@
 import IComponent from '../AbstractClasses/IComponent';
-import { createElement, render } from '../../utils';
+import { createElement, render } from '../../utils/render';
 import TripEventsList from '../TripEventsList/TripEventsList';
 import TripDayItemTemplate from './TripDayItemTemplate';
 
@@ -16,7 +16,7 @@ export default class TripDayItem extends IComponent {
 
   fillDayItemWithEvents() {
     const dayItem = this._element;
-    render(dayItem, new TripEventsList(this.events).getElement());
+    render(dayItem, new TripEventsList(this.events));
   }
 
   getElement() {

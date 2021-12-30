@@ -10,4 +10,8 @@ export default class EventEdit extends IComponent {
   getTemplate() {
     return EventEditTemplate(this.event);
   }
+
+  setSubmitHandler(handler) {
+    this.getElement().addEventListener('submit', handler);
+  }
 }

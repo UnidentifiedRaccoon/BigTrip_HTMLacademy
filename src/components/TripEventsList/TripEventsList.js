@@ -1,33 +1,36 @@
 import IComponent from '../AbstractClasses/IComponent';
-import { createElement, render } from '../../utils';
+import { createElement, render, replace } from '../../utils/render';
 import TripEventsListTemplate from './TripEventsListTemplate';
 import EventPoint from '../EventPoint/EventPoint';
 import EventEdit from '../EventEdit/EventEdit';
 
 const renderEventItem = (eventElementsList, event) => {
-  const eventPoint = new EventPoint(event).getElement();
-  const eventEditForm = new EventEdit(event).getElement();
+  const eventPoint = new EventPoint(event);
+  const eventEditForm = new EventEdit(event);
 
-  const rollupBtn = eventPoint.querySelector('.event__rollup-btn');
   const escKeyDownHandler = (evt) => {
     evt.preventDefault();
     const isEsc = evt.keyCode === 27;
     if (isEsc) {
-      eventElementsList.replaceChild(eventPoint, eventEditForm);
+      replace(eventEditForm, eventPoint);
       document.removeEventListener('keydown', escKeyDownHandler);
     }
   };
 
-  rollupBtn.addEventListener('click', (evt) => {
+  const openBtnClickHandler = (evt) => {
     evt.preventDefault();
-    eventElementsList.replaceChild(eventEditForm, eventPoint);
+    replace(eventPoint, eventEditForm);
     document.addEventListener('keydown', escKeyDownHandler);
-  });
-  eventEditForm.addEventListener('submit', (evt) => {
+  };
+
+  const submitHandler = (evt) => {
     evt.preventDefault();
-    eventElementsList.replaceChild(eventPoint, eventEditForm);
+    replace(eventEditForm, eventPoint);
     document.removeEventListener('keydown', escKeyDownHandler);
-  });
+  };
+
+  eventPoint.setOpenBtnClickHandler(openBtnClickHandler);
+  eventEditForm.setSubmitHandler(submitHandler);
 
   render(eventElementsList, eventPoint);
 };

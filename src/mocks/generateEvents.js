@@ -1,4 +1,4 @@
-import { getRandomArrayItem, getRandomIntNumber } from '../utils';
+import { getRandomArrayItem, getRandomIntNumber } from '../utils/common';
 import { TYPES } from '../const';
 import { generateDestination } from './generateDestination';
 import { getEventActiveOffers } from './generateOffers';
