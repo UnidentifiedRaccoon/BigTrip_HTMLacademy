@@ -16,6 +16,7 @@ function EventObjGenerator() {
 }
 
 const generateEvents = (amount) => {
+  if (amount === 0) return [];
   const events = new Array(amount);
   return events
     .fill(0)

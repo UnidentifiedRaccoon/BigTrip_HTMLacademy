@@ -20,8 +20,6 @@ export const render = (container, component, method = 'append') => {
 };
 
 export const replace = (oldContent, newContent) => {
-  console.log(oldContent);
-  console.log(newContent);
   oldContent.getElement().replaceWith(newContent.getElement());
 };
 
