@@ -1,4 +1,4 @@
-import { castTimeFormat } from '../../utils';
+import { castTimeFormat } from '../../utils/common';
 import { Destination, TYPES } from '../../const';
 import { offersForEachType } from '../../mocks/generateOffers';
 

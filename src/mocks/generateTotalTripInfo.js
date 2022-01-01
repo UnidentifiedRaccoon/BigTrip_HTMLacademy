@@ -17,7 +17,7 @@ const eveluateDuration = (events) => {
   return `${startMonth} ${startDay} - ${finishMonth} ${finishDay}`;
 };
 
-const eveluateRoute = (events) => {
+const evaluateRoute = (events) => {
   const tripPoints = [events[0].destination.name];
   for (let i = 1; i < events.length; i += 1) {
     const intermediatePoint = events[i].destination.name;
@@ -32,7 +32,8 @@ const eveluateRoute = (events) => {
 };
 
 function TotalTripInfoObjGenerator(events) {
-  this.route = eveluateRoute(events);
+  if (events.length === 0) return this;
+  this.route = evaluateRoute(events);
   this.duration = eveluateDuration(events);
   this.price = evaluateTotalPrice(events);
 }

@@ -1,24 +1,13 @@
-import { createElement } from '../../utils';
+import IComponent from '../AbstractClasses/IComponent';
 import TotalTripInfoTemplate from './TotalTripInfoTemplate';
 
-export default class TotalTripInfo {
+export default class TotalTripInfo extends IComponent {
   constructor(info) {
+    super();
     this.info = info;
-    this._element = null;
   }
 
   getTemplate() {
     return TotalTripInfoTemplate(this.info);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

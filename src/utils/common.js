@@ -1,3 +1,9 @@
+export const SortTypes = {
+  EVENT: 'event',
+  TIME: 'time',
+  PRICE: 'price',
+};
+
 export const getRandomIntNumber = (a = 1, b = 0) => {
   // Определяем максимум и минимум
   const max = Math.max(a, b);
@@ -51,24 +57,4 @@ export const getPerformedTimeDiff = (dateFrom, dateTo) => {
   return {
     years, months, days, hours, minutes,
   };
-};
-
-export const createElement = (template) => {
-  const div = document.createElement('div');
-  div.innerHTML = template.trim();
-  return div.firstChild;
-};
-
-export const render = (container, element, method = 'append') => {
-  switch (method) {
-    case 'append':
-      container.append(element);
-      break;
-    case 'prepend':
-      container.prepend(element);
-      break;
-    default:
-      container.append(element);
-      break;
-  }
 };

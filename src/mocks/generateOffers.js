@@ -1,4 +1,4 @@
-import { getRandomArrayItem, getRandomIntNumber } from '../utils';
+import { getRandomArrayItem, getRandomIntNumber } from '../utils/common';
 import { OFFERS_WARIANTS, TYPES } from '../const';
 
 let preventDuplicates = [];

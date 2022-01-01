@@ -1,23 +1,32 @@
-import { createElement } from '../../utils';
+import IComponent from '../AbstractClasses/IComponent';
 import SortTemplate from './SortTemplate';
+import { SortTypes } from '../../utils/common';
 
-export default class Sort {
+export default class Sort extends IComponent {
   constructor() {
-    this._element = null;
+    super();
+    this._currentSortType = SortTypes.EVENT;
   }
 
-  static getTemplate() {
+  // eslint-disable-next-line class-methods-use-this
+  getTemplate() {
     return SortTemplate();
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(Sort.getTemplate());
-    }
-    return this._element;
+  setCurrentSortType(currentSortType) {
+    this._currentSortType = currentSortType;
   }
 
-  removeElement() {
-    this._element = null;
+  getCurrentSortType() {
+    return this._currentSortType;
+  }
+
+  setSortTypeChangeHandler(handler) {
+    this._element.addEventListener('change', (event) => {
+      event.preventDefault();
+      console.log(event.target);
+      this.setCurrentSortType(event.target.dataset.sortType);
+      handler(this.getCurrentSortType());
+    });
   }
 }

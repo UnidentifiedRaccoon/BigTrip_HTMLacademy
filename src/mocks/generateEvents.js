@@ -1,4 +1,4 @@
-import { getRandomArrayItem, getRandomIntNumber } from '../utils';
+import { getRandomArrayItem, getRandomIntNumber } from '../utils/common';
 import { TYPES } from '../const';
 import { generateDestination } from './generateDestination';
 import { getEventActiveOffers } from './generateOffers';
@@ -16,6 +16,7 @@ function EventObjGenerator() {
 }
 
 const generateEvents = (amount) => {
+  if (amount === 0) return [];
   const events = new Array(amount);
   return events
     .fill(0)
