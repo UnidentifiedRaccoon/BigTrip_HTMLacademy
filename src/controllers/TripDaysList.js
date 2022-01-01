@@ -26,17 +26,26 @@ export default class TripDaysListController {
     this._container = container;
   }
 
-  render(events) {
+  render(events, withDays = true) {
     const container = this._container.getElement();
-    const eventsDividedByDates = divideEventsByDates(events);
-    for (let i = 0; i < eventsDividedByDates.length; i += 1) {
-      const currentDayEvents = eventsDividedByDates[i];
-      const tripDayItem = new TripDayItem(currentDayEvents, i);
+    const renderDayItems = (currentEvents, dayNumber) => {
+      const tripDayItem = new TripDayItem(currentEvents, dayNumber);
       const tripEventsList = new TripEventsList();
       const tripEventsListController = new TripEventsListController(tripEventsList);
       render(container, tripDayItem);
       render(tripDayItem.getElement(), tripEventsList);
-      tripEventsListController.render(currentDayEvents);
+      tripEventsListController.render(currentEvents);
+    };
+
+    if (!withDays) {
+      renderDayItems(events);
+      return;
+    }
+
+    const eventsDividedByDates = divideEventsByDates(events);
+    for (let i = 0; i < eventsDividedByDates.length; i += 1) {
+      const currentDayEvents = eventsDividedByDates[i];
+      renderDayItems(currentDayEvents, i);
     }
   }
 }

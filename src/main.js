@@ -1,5 +1,5 @@
 import { getRandomIntNumber } from './utils/common';
-import { render } from './utils/render';
+import { render, renderMethods } from './utils/render';
 import { generateEvents } from './mocks/generateEvents';
 import { generateTotalTripInfo } from './mocks/generateTotalTripInfo';
 import TotalTripInfo from './components/TotalTripInfo/TotalTripInfo';
@@ -18,7 +18,7 @@ const tripMainElement = siteHeaderElement.querySelector('.trip-main');
 const tripControlsElement = tripMainElement.querySelector('.trip-controls');
 const pageMainContainerElement = document.querySelector('.page-main .page-body__container');
 
-render(tripMainElement, new TotalTripInfo(totalTripInfo), 'prepend');
+render(tripMainElement, new TotalTripInfo(totalTripInfo), renderMethods.PREPEND);
 render(tripControlsElement, new SiteMenu());
 render(tripControlsElement, new Filters());
 

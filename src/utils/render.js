@@ -1,3 +1,8 @@
+export const renderMethods = {
+  PREPEND: 'prepend',
+  APPEND: 'append',
+};
+
 export const createElement = (template) => {
   const div = document.createElement('div');
   div.innerHTML = template.trim();
@@ -7,10 +12,10 @@ export const createElement = (template) => {
 export const render = (container, component, method = 'append') => {
   const element = component.getElement();
   switch (method) {
-    case 'append':
+    case renderMethods.APPEND:
       container.append(element);
       break;
-    case 'prepend':
+    case renderMethods.PREPEND:
       container.prepend(element);
       break;
     default:

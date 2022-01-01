@@ -1,3 +1,9 @@
+export const SortTypes = {
+  EVENT: 'event',
+  TIME: 'time',
+  PRICE: 'price',
+};
+
 export const getRandomIntNumber = (a = 1, b = 0) => {
   // Определяем максимум и минимум
   const max = Math.max(a, b);

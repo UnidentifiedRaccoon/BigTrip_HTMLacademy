@@ -8,8 +8,9 @@ const TripDayItemInfoTemplate = (date, dayIndex) => {
 
   return `
       <div class="day__info">
-        <span class="day__counter">${dayIndex}</span>
-        <time class="day__date" datetime="${year}-${month}-${day}">${monthName} ${day}</time>
+        ${!dayIndex ? '' : `        <span class="day__counter">${dayIndex}</span>
+        <time class="day__date" datetime="${year}-${month}-${day}">${monthName} ${day}</time>`}
+
       </div>
     `;
 };
