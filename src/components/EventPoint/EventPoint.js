@@ -13,6 +13,9 @@ export default class EventPoint extends IComponent {
 
   setOpenBtnClickHandler(handler) {
     const rollupBtn = this.getElement().querySelector('.event__rollup-btn');
-    rollupBtn.addEventListener('click', handler);
+    rollupBtn.addEventListener('click', (evt) => {
+      evt.preventDefault();
+      handler();
+    });
   }
 }

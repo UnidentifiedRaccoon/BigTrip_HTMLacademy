@@ -6,7 +6,7 @@ import TotalTripInfo from './components/TotalTripInfo/TotalTripInfo';
 import SiteMenu from './components/SiteMenu/SiteMenu';
 import Filters from './components/Filters/Filters';
 import TripEventsBoard from './components/TripEventsBoard/TripEventsBoard';
-import TripEventsBoardController from './controllers/TripEventsBoard';
+import BoardController from './controllers/board';
 
 // Generated site constants
 const EVENTS_AMOUNT = getRandomIntNumber(2, 5);
@@ -23,6 +23,6 @@ render(tripControlsElement, new SiteMenu());
 render(tripControlsElement, new Filters());
 
 const tripEventsBoard = new TripEventsBoard();
-const tripController = new TripEventsBoardController(tripEventsBoard);
+const tripController = new BoardController(tripEventsBoard);
 render(pageMainContainerElement, tripEventsBoard);
 tripController.render(events);

@@ -10,16 +10,17 @@ export const createElement = (template) => {
 };
 
 export const render = (container, component, method = 'append') => {
+  const containerElement = container._element || container;
   const element = component.getElement();
   switch (method) {
     case renderMethods.APPEND:
-      container.append(element);
+      containerElement.append(element);
       break;
     case renderMethods.PREPEND:
-      container.prepend(element);
+      containerElement.prepend(element);
       break;
     default:
-      container.append(element);
+      containerElement.append(element);
       break;
   }
 };
