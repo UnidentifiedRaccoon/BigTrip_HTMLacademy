@@ -13,8 +13,10 @@ function EventObjGenerator() {
   const sign = Math.random() > 0.5 ? 1 : -1;
   this.dateFrom = new Date(Date.now() + sign * getRandomIntNumber(dayInMs * 2));
   this.dateTo = new Date(this.dateFrom.getTime() + getRandomIntNumber(dayInMs * 2));
+  EventObjGenerator.count += 1;
+  this.id = EventObjGenerator.count;
 }
-
+EventObjGenerator.count = 0;
 const generateEvents = (amount) => {
   if (amount === 0) return [];
   const events = new Array(amount);

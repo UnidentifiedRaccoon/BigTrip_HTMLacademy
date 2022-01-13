@@ -30,14 +30,14 @@ const EventPointTemplate = (event) => {
 // Стоимость точки маршрута, которую ввел пользователь
 // в соотв. поле не  изменяется при выборе Offers
   const {
-    type, price, destination, dateFrom, dateTo, offers,
+    type, price, destination, dateFrom, dateTo, offers, id,
   } = event;
 
   const duration = getFormattedDuration(dateFrom, dateTo);
   const timeFrom = `${dateFrom.getHours()} : ${dateFrom.getMinutes()}`;
   const timeTo = `${dateTo.getHours()} : ${dateTo.getMinutes()}`;
   return `
-        <li class="trip-events__item">
+        <li class="trip-events__item" id="event-${id}">
           <div class="event">
             <div class="event__type">
                  <img class="event__type-icon" width="42" height="42" src="img/icons/${type.name.toLowerCase()}.png" alt="Event type icon">

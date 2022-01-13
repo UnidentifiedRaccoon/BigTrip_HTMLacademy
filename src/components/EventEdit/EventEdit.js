@@ -12,6 +12,9 @@ export default class EventEdit extends IComponent {
   }
 
   setSubmitHandler(handler) {
-    this.getElement().addEventListener('submit', handler);
+    this.getElement().addEventListener('submit', (evt) => {
+      evt.preventDefault();
+      handler();
+    });
   }
 }

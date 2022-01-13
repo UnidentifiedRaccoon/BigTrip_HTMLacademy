@@ -22,11 +22,11 @@ export default class Sort extends IComponent {
   }
 
   setSortTypeChangeHandler(handler) {
-    this._element.addEventListener('change', (event) => {
+    this.getElement().addEventListener('change', (event) => {
       event.preventDefault();
-      console.log(event.target);
-      this.setCurrentSortType(event.target.dataset.sortType);
-      handler(this.getCurrentSortType());
+      const { sortType } = event.target.dataset;
+      this.setCurrentSortType(sortType);
+      handler(sortType);
     });
   }
 }
