@@ -29,7 +29,7 @@ export const getEventsSortedByType = (events, sortType) => {
   return { sortedEvents, withDays };
 };
 
-export const getEventsSortedByDates = (events) => {
+export const getEventsDividedByDates = (events) => {
   const days = [];
   days[0] = [events[0]];
   let prevDate = events[0].dateFrom.getDate();

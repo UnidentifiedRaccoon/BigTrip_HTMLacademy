@@ -63,7 +63,7 @@ const priceFieldGroupTemplate = (price) => `
   </div>
 `;
 
-const EventHeaderTemplate = (type, destinationName, dateFrom, dateTo, price, id) => {
+const EventHeaderTemplate = (type, destinationName, dateFrom, dateTo, price, isFavorite, id) => {
   const transfers = TYPES.filter((item) => item.group === 'transfer').map((item) => typeItemTemplate(item.name, item.name === type.name));
   const activities = TYPES.filter((item) => item.group === 'activity').map((item) => typeItemTemplate(item.name, item.name === type.name));
   const destinationFieldGroup = destinationFieldGroupTemplate(destinationName, type);
@@ -96,7 +96,7 @@ const EventHeaderTemplate = (type, destinationName, dateFrom, dateTo, price, id)
               <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
               <button class="event__reset-btn" type="reset">Delete</button>
               
-              <input id="event-favorite-${id}" class="event__favorite-checkbox  visually-hidden" type="checkbox" name="event-favorite" checked>
+              <input id="event-favorite-${id}" class="event__favorite-checkbox  visually-hidden" type="checkbox" name="event-favorite" ${isFavorite ? 'checked' : ''}>
               <label class="event__favorite-btn" for="event-favorite-${id}">
                 <span class="visually-hidden">Add to favorite</span>
                 <svg class="event__favorite-icon" width="28" height="28" viewBox="0 0 28 28">
@@ -163,14 +163,14 @@ const EventDetailsTemplate = (eventActiveOffers, offersForCurrentType, descripti
   </section>
 `;
 
-const EventEditTemplate = (event) => {
+const EventEditTemplate = (event, isFavorite) => {
   const {
     type, price, destination, dateFrom, dateTo, offers: eventActiveOffers, id,
   } = event;
   const offersForCurrentType = offersForEachType.find((offer) => offer.type === type.name);
   return `
   <form class="trip-events__item  event  event--edit" action="#" method="post">
-    ${EventHeaderTemplate(type, destination.name, dateFrom, dateTo, price, id)}
+    ${EventHeaderTemplate(type, destination.name, dateFrom, dateTo, price, isFavorite, id)}
     ${EventDetailsTemplate(eventActiveOffers, offersForCurrentType, destination.description, destination.pictures)}
   </form>
 `;

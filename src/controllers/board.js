@@ -2,13 +2,14 @@ import { render } from '../utils/render';
 import Sort from '../components/Sort/Sort';
 import NoEvents from '../components/NoEvents/NoEvents';
 import TripDaysList from '../components/TripDaysList/TripDaysList';
-import { getEventsSortedByDates, getEventsSortedByType } from '../utils/sort';
+import { getEventsDividedByDates, getEventsSortedByType } from '../utils/sort';
 import DayController from './day';
 
 export default class BoardController {
   constructor(container) {
     this._eventsData = [];
     this._dayControlers = [];
+    this._eventsControllers = [];
 
     this._container = container;
     this._sortComponent = new Sort();
@@ -17,6 +18,7 @@ export default class BoardController {
 
     this._sortTypeChangeHandler = this._sortTypeChangeHandler.bind(this);
     this._sortComponent.setSortTypeChangeHandler(this._sortTypeChangeHandler);
+    this._onDataChange = this._onDataChange.bind(this);
   }
 
   render(eventsData) {
@@ -28,20 +30,22 @@ export default class BoardController {
 
     render(this._container, this._sortComponent);
     render(this._container, this._DaysListComponent);
-    this._dayControlers = this._renderDays(eventsData);
+    this._renderDays(eventsData);
   }
 
   _renderDays(eventsData, withDays = true) {
     if (!withDays) {
-      const dayController = new DayController(this._DaysListComponent);
+      const dayController = new DayController(this._DaysListComponent, this._onDataChange);
       dayController.render(eventsData, withDays);
-      return [dayController];
+      this._dayControlers = [dayController];
+      this._eventsControllers = dayController.getEventControllers();
     }
 
-    const daysEvents = getEventsSortedByDates(eventsData);
-    return daysEvents.map((dayEvents) => {
-      const dayController = new DayController(this._DaysListComponent);
+    const daysEvents = getEventsDividedByDates(eventsData);
+    this._dayControlers = daysEvents.map((dayEvents) => {
+      const dayController = new DayController(this._DaysListComponent, this._onDataChange);
       dayController.render(dayEvents);
+      this._eventsControllers = this._eventsControllers.concat(dayController.getEventControllers());
       return dayController;
     });
   }
@@ -50,11 +54,25 @@ export default class BoardController {
     this._DaysListComponent.getElement().innerHTML = '';
     this._clearDayControllers();
     const { sortedEvents, withDays } = getEventsSortedByType(this._eventsData, sortType);
-    this._dayControlers = this._renderDays(sortedEvents, withDays);
+    this._eventsData = sortedEvents;
+    this._renderDays(sortedEvents, withDays);
   }
 
   _clearDayControllers() {
     this._dayControlers.forEach((dayController) => dayController.remove());
     this._dayControlers = [];
+  }
+
+  _onDataChange(oldData, newData) {
+    const index = this._eventsData.findIndex((data) => data === oldData);
+    if (index === -1) return;
+
+    this._eventsData = [
+      ...this._eventsData.slice(0, index),
+      newData,
+      ...this._eventsData.slice(index + 1),
+    ];
+    const currentController = this._eventsControllers[index];
+    currentController.render(newData);
   }
 }

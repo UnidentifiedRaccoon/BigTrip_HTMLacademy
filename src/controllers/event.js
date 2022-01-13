@@ -3,24 +3,36 @@ import EventEdit from '../components/EventEdit/EventEdit';
 import { render, replace } from '../utils/render';
 
 export default class EventController {
-  constructor(container) {
+  constructor(container, onDataChange) {
+    this._eventData = null;
     this._event = null;
     this._eventEdit = null;
     this._container = container;
+    this._onDataChange = onDataChange;
 
     this._escKeyDownHandler = this._escKeyDownHandler.bind(this);
     this._openBtnClickHandler = this._openBtnClickHandler.bind(this);
+    this._favoriteBtnChangeHandler = this._favoriteBtnChangeHandler.bind(this);
     this._submitHandler = this._submitHandler.bind(this);
   }
 
   render(eventData) {
+    this._eventData = eventData;
+    const oldEvent = this._event;
+    const oldEventEdit = this._eventEdit;
     this._event = new EventPoint(eventData);
     this._eventEdit = new EventEdit(eventData);
 
+    if (oldEvent && oldEventEdit) {
+      replace(oldEvent, this._event);
+      replace(oldEventEdit, this._eventEdit);
+    } else {
+      render(this._container, this._event);
+    }
+
     this._event.setOpenBtnClickHandler(this._openBtnClickHandler);
     this._eventEdit.setSubmitHandler(this._submitHandler);
-
-    render(this._container, this._event);
+    this._eventEdit.setFavoriteBtnChangeHandler(this._favoriteBtnChangeHandler);
   }
 
   remove() {
@@ -34,6 +46,13 @@ export default class EventController {
 
   _submitHandler() {
     this._replaceEditToEvent();
+  }
+
+  _favoriteBtnChangeHandler() {
+    this._onDataChange(
+      this._eventData,
+      { ...this._eventData, isFavorite: !this._eventEdit.isFavorite },
+    );
   }
 
   _escKeyDownHandler(evt) {
