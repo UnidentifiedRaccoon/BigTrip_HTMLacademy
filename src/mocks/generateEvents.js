@@ -1,12 +1,12 @@
 import { getRandomArrayItem, getRandomIntNumber } from '../utils/common';
 import { TYPES } from '../const';
-import { generateDestination } from './generateDestination';
+import { GENERATED_DESTINATIONS } from './generateDestination';
 import { getEventActiveOffers } from './generateOffers';
 
 function EventObjGenerator() {
   this.type = getRandomArrayItem(TYPES);
   this.isFavorite = Math.random() > 0.5;
-  this.destination = generateDestination();
+  this.destination = getRandomArrayItem(GENERATED_DESTINATIONS);
   this.offers = getEventActiveOffers(this.type);
   this.price = getRandomIntNumber(50, 1000);
   const dayInMs = 24 * 3600 * 1000;

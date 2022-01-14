@@ -19,6 +19,7 @@ export default class BoardController {
     this._sortTypeChangeHandler = this._sortTypeChangeHandler.bind(this);
     this._sortComponent.setSortTypeChangeHandler(this._sortTypeChangeHandler);
     this._onDataChange = this._onDataChange.bind(this);
+    this._onViewChange = this._onViewChange.bind(this);
   }
 
   render(eventsData) {
@@ -30,20 +31,29 @@ export default class BoardController {
 
     render(this._container, this._sortComponent);
     render(this._container, this._DaysListComponent);
-    this._renderDays(eventsData);
+    this._renderDays();
   }
 
-  _renderDays(eventsData, withDays = true) {
+  _renderDays(withDays = true) {
     if (!withDays) {
-      const dayController = new DayController(this._DaysListComponent, this._onDataChange);
-      dayController.render(eventsData, withDays);
+      const dayController = new DayController(
+        this._DaysListComponent,
+        this._onDataChange,
+        this._onViewChange,
+      );
+      dayController.render(this._eventsData, withDays);
       this._dayControlers = [dayController];
       this._eventsControllers = dayController.getEventControllers();
+      return;
     }
 
-    const daysEvents = getEventsDividedByDates(eventsData);
+    const daysEvents = getEventsDividedByDates(this._eventsData);
     this._dayControlers = daysEvents.map((dayEvents) => {
-      const dayController = new DayController(this._DaysListComponent, this._onDataChange);
+      const dayController = new DayController(
+        this._DaysListComponent,
+        this._onDataChange,
+        this._onViewChange,
+      );
       dayController.render(dayEvents);
       this._eventsControllers = this._eventsControllers.concat(dayController.getEventControllers());
       return dayController;
@@ -55,7 +65,7 @@ export default class BoardController {
     this._clearDayControllers();
     const { sortedEvents, withDays } = getEventsSortedByType(this._eventsData, sortType);
     this._eventsData = sortedEvents;
-    this._renderDays(sortedEvents, withDays);
+    this._renderDays(withDays);
   }
 
   _clearDayControllers() {
@@ -74,5 +84,9 @@ export default class BoardController {
     ];
     const currentController = this._eventsControllers[index];
     currentController.render(newData);
+  }
+
+  _onViewChange() {
+    this._eventsControllers.forEach((controller) => controller.setDefaultView());
   }
 }

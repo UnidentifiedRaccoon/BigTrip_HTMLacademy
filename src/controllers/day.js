@@ -4,7 +4,7 @@ import TripEventsList from '../components/TripEventsList/TripEventsList';
 import EventController from './event';
 
 export default class DayController {
-  constructor(container, onDataChange) {
+  constructor(container, onDataChange, onViewChange) {
     this._eventsData = [];
     this._eventControllers = [];
     this._DayItemComponent = null;
@@ -13,6 +13,7 @@ export default class DayController {
 
     this._container = container;
     this._onDataChange = onDataChange;
+    this._onViewChange = onViewChange;
     this._tripEventsList = new TripEventsList();
   }
 
@@ -38,7 +39,11 @@ export default class DayController {
 
   _renderEvents() {
     this._eventControllers = this._eventsData.map((event) => {
-      const eventController = new EventController(this._tripEventsList, this._onDataChange);
+      const eventController = new EventController(
+        this._tripEventsList,
+        this._onDataChange,
+        this._onViewChange,
+      );
       eventController.render(event);
       return eventController;
     });

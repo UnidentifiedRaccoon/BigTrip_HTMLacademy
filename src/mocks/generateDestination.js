@@ -9,12 +9,13 @@ const getRandomPictures = () => {
     .map(() => Destination.PHOTOS[getRandomIntNumber(Destination.PHOTOS.length - 1)]);
 };
 
-function DestinationObjGenerator() {
+function DestinationObjGenerator(place) {
   this.description = getRandomArrayItem(Destination.DESCRIPTIONS);
-  this.name = getRandomArrayItem(Destination.PLACES);
+  this.place = place;
   this.pictures = getRandomPictures();
 }
 
-const generateDestination = () => new DestinationObjGenerator();
+const GENERATED_DESTINATIONS = Destination.PLACES
+  .map((place) => new DestinationObjGenerator(place));
 
-export { generateDestination, DestinationObjGenerator };
+export { GENERATED_DESTINATIONS, DestinationObjGenerator };
