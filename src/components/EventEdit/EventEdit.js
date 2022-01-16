@@ -1,6 +1,11 @@
+import flatpickr from 'flatpickr';
+import moment from 'moment';
+import rangePlugin from '../../../node_modules/flatpickr/dist/plugins/rangePlugin';
 import EventEditTemplate from './EventEditTemplate';
 import ISmartComponent from '../AbstractClasses/ISmartComponent';
 import { GENERATED_DESTINATIONS } from '../../mocks/generateDestination';
+
+import 'flatpickr/dist/flatpickr.min.css';
 
 export default class EventEdit extends ISmartComponent {
   constructor(event) {
@@ -9,13 +14,17 @@ export default class EventEdit extends ISmartComponent {
     this.isFavorite = event.isFavorite;
     this.type = { ...event.type };
     this.destination = { ...event.destination };
+    this.id = event.id;
 
+    this._flatpickr = null;
     this._closeBtnClickHandler = null;
     this._submitHandler = null;
     this._favoriteBtnClickHandler = null;
-
+    this._applyFlatpickr();
     this._addTypeChangeListener();
     this._addDestinationChangeListener();
+    this._addTimeChangeListener();
+    // this._addTimeChangeListener = this._addTimeChangeListener.bind(this);
   }
 
   getTemplate() {
@@ -57,12 +66,38 @@ export default class EventEdit extends ISmartComponent {
     this.setFavoriteBtnChangeHandler(this._favoriteBtnClickHandler);
     this._addTypeChangeListener();
     this._addDestinationChangeListener();
+    this._addTimeChangeListener();
+  }
+
+  rerender() {
+    super.rerender();
+    this._applyFlatpickr();
   }
 
   reset() {
     this.type = { ...this.event.type };
     this.destination = { ...this.event.destination };
     this.rerender();
+  }
+
+  _applyFlatpickr() {
+    if (this._flatpickr) {
+      this._flatpickr.destroy();
+      this._flatpickr = null;
+    }
+
+    const dateElements = this.getElement().querySelectorAll('.event__input--time');
+    const dateElementFrom = dateElements[0];
+    const dateElementTo = dateElements[1];
+    this._flatpickr = flatpickr(dateElementFrom, {
+      defaultDate: [this.event.dateFrom, this.event.dateTo],
+      time_24hr: true,
+      enableTime: true,
+      parseDate: (datestr) => moment(datestr, 'MM/DD/YY HH:mm').toDate(),
+      formatDate: (date) => moment(date).format('MM/DD/YY HH:mm'),
+      // eslint-disable-next-line new-cap
+      plugins: [new rangePlugin({ input: dateElementTo })],
+    });
   }
 
   _addTypeChangeListener() {
@@ -91,5 +126,10 @@ export default class EventEdit extends ISmartComponent {
         }
         this.rerender();
       });
+  }
+
+  _addTimeChangeListener() {
+    this.getElement()
+      .querySelector('.event__input--time');
   }
 }

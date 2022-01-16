@@ -1,14 +1,5 @@
-import { castTimeFormat, getPerformedTimeDiff } from '../../utils/common';
-
-const getFormattedDuration = (dateFrom, dateTo) => {
-  const { days, hours, minutes } = getPerformedTimeDiff(dateFrom, dateTo);
-
-  const castedDay = days > 0 ? `${castTimeFormat(days)}D` : '';
-  const castedHours = hours > 0 ? `${castTimeFormat(hours)}H` : '';
-  const castedMinutes = minutes > 0 ? `${castTimeFormat(minutes)}M` : '';
-
-  return `${castedDay} ${castedHours} ${castedMinutes}`;
-};
+import moment from 'moment';
+import { getFormattedDuration } from '../../utils/timeFormatting';
 
 const EventOffersTemplate = (offers) => {
   const templatedOffers = offers.slice(0, 3).map((offer) => `
@@ -34,8 +25,8 @@ const EventPointTemplate = (event) => {
   } = event;
 
   const duration = getFormattedDuration(dateFrom, dateTo);
-  const timeFrom = `${dateFrom.getHours()} : ${dateFrom.getMinutes()}`;
-  const timeTo = `${dateTo.getHours()} : ${dateTo.getMinutes()}`;
+  const timeFrom = moment(dateFrom).format('HH:mm');
+  const timeTo = moment(dateTo).format('HH:mm');
   return `
         <li class="trip-events__item" id="event-${id}">
           <div class="event">

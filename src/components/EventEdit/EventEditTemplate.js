@@ -1,16 +1,5 @@
-import { castTimeFormat } from '../../utils/common';
 import { Destination, TYPES } from '../../const';
 import { offersForEachType } from '../../mocks/generateOffers';
-
-const getFormattedDate = (date) => {
-  const year = castTimeFormat(date.getFullYear() % 100);
-  const month = castTimeFormat(date.getMonth() + 1);
-  const day = castTimeFormat(date.getDate());
-  const hours = castTimeFormat(date.getHours());
-  const minutes = castTimeFormat(date.getMinutes());
-
-  return `${day}/${month}/${year}&nbsp;${hours}:${minutes}`;
-};
 
 const typeItemTemplate = (id, typeName, isChecked = false) => {
   const lowerCaseName = typeName.toLowerCase();
@@ -64,23 +53,18 @@ const destinationFieldGroupTemplate = (id, destinationPlace, type) => {
 `;
 };
 
-const timeFieldGroupTemplate = (id, dateFrom, dateTo) => {
-  const timeFrom = getFormattedDate(dateFrom);
-  const timeTo = getFormattedDate(dateTo);
-  return `
+const timeFieldGroupTemplate = (id, dateFrom, dateTo) => `
     <div class="event__field-group  event__field-group--time">
       <label class="visually-hidden" for="event-start-time-${id}">
         From
       </label>
-      <input class="event__input  event__input--time" id="event-start-time-${id}" type="text" name="event-start-time" value=${timeFrom}>
+      <input class="event__input  event__input--time" id="event-start-time-${id}" type="text" name="event-start-time" value=${dateFrom}>
       &mdash;
       <label class="visually-hidden" for="event-end-time-${id}">
         To
       </label>
-      <input class="event__input  event__input--time" id="event-end-time-${id}" type="text" name="event-end-time" value=${timeTo}>
+      <input class="event__input  event__input--time" id="event-end-time-${id}" type="text" name="event-end-time" value=${dateTo}>
     </div>`;
-};
-
 const priceFieldGroupTemplate = (id, price) => `            
   <div class="event__field-group  event__field-group--price">
     <label class="event__label" for="event-price-${id}">
