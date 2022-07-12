@@ -1,6 +1,6 @@
 import { MONTH_NAMES } from '../../const';
 
-const TripDayItemInfoTemplate = (date, dayIndex) => {
+const TripDayItemInfoTemplate = (date, id, withDays) => {
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDate();
@@ -8,16 +8,17 @@ const TripDayItemInfoTemplate = (date, dayIndex) => {
 
   return `
       <div class="day__info">
-        ${!dayIndex ? '' : `        <span class="day__counter">${dayIndex}</span>
-        <time class="day__date" datetime="${year}-${month}-${day}">${monthName} ${day}</time>`}
-
+        ${!withDays ? '' : `
+            <span class="day__counter">${id}</span>
+            <time class="day__date" datetime="${year}-${month}-${day}">${monthName} ${day}</time>`
+}
       </div>
     `;
 };
 
-const TripDayItemTemplate = (events, dayIndex) => `
+const TripDayItemTemplate = (events, id, withDays) => `
         <li class="trip-days__item  day">
-            ${TripDayItemInfoTemplate(events[0].dateFrom, dayIndex)}  
+            ${TripDayItemInfoTemplate(events[0].dateFrom, id, withDays)}  
         </li>
     `;
 
